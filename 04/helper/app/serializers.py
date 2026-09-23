@@ -5,6 +5,6 @@ from .models import Note
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
-    class Name:
+    class Meta:
         model = Note
         fields = ['id', 'title', 'content', 'owner', 'created_at']

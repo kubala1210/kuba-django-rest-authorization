@@ -1,16 +1,10 @@
+def acl_check(user, obj, action: str) -> bool:
+    is_owner = user == getattr(obj, "owner", None)
 
-
-def acl_check(user, obj, action):
-
-    if not user or user.is_authenticated():
-        return False
-
-    is_owner = obj.owner == user
-
-    if action == 'read':
+    if action in {"read", "list", "detail"}:
         return True
 
-    if action in ['update', 'delete']:
+    if action in {"update", "partial_update", "delete"}:
         return is_owner
 
     return False

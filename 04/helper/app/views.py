@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import Note
 from .serializers import NoteSerializer
@@ -12,6 +11,8 @@ class NoteDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class NoteListCreate(generics.ListCreateAPIView):
+    serializer_class = NoteSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Note.objects.filter(owner=self.request.user)
